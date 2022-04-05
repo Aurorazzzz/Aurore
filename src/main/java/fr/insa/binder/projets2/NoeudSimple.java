@@ -25,19 +25,25 @@ public class NoeudSimple extends Noeud{
      public NoeudSimple(){
         super ();
     }
-     
-    public void Test(){
-    NoeudSimple n1 = new NoeudSimple (1, 2, 3, new Vecteur2D(0,0));
-    NoeudSimple n2 = new NoeudSimple ();
-    System.out.println(n1.toString());
-    System.out.println(n2.toString());
-
-    }
     
-    // pas de toString
-    
-    public void main(String[] args) {
-       //Test();
-       entreeNoeud();
+    @Override
+    public String toString() {
+        return "Noeud Simple : (" + this.getNx() + " ; " + this.getNy() + " ; " + this.getId() + " ; (" + this.getFc() + "))";
     }
 }
+     
+//    public void Test(){
+//    NoeudSimple n1 = new NoeudSimple (1, 2, 3, new Vecteur2D(0,0));
+//    NoeudSimple n2 = new NoeudSimple ();
+//    System.out.println(n1.toString());
+//    System.out.println(n2.toString());
+//
+//    }
+//    
+//    // pas de toString
+//    
+//    public void main(String[] args) {
+//       //Test();
+//       entreeNoeud();
+//    }
+//}

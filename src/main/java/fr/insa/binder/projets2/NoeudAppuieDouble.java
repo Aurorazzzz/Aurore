@@ -14,16 +14,20 @@ public class NoeudAppuieDouble extends Noeud{
         super ( nx,  ny,  id,  fc);
     }
 
-//    public NoeudAppuieDouble(double nx, double ny, Vecteur2D fc){
-//        super ( nx,  ny,  fc);
-//    }
-//    
-//    public NoeudAppuieDouble(double nx, double ny){
-//        super (nx, ny);
-//    }
-//
-//     public NoeudAppuieDouble(){
-//        super ();
-//    }    
+    public NoeudAppuieDouble(double nx, double ny, Vecteur2D fc){
+        super ( nx,  ny,  fc);
+    }
     
+    public NoeudAppuieDouble(double nx, double ny){
+        super (nx, ny);
+    }
+
+     public NoeudAppuieDouble(){
+        super ();
+    }    
+        @Override
+    public String toString() {
+        return "Noeud Appuie Double : (" + this.getNx() + " ; " + this.getNy() + " ; " + this.getId() + " ; (" + this.getFc() + "))";
+    }
 }
+

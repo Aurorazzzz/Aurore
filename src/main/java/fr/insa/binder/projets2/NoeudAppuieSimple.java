@@ -25,5 +25,8 @@ public class NoeudAppuieSimple extends Noeud{
      public NoeudAppuieSimple(){
         super ();
     }
-    
+    @Override
+    public String toString() {
+        return "Noeud Appuie Simple (" + this.getNx() + " ; " + this.getNy() + " ; " + this.getId() + " ; (" + this.getFc() + "))";
+    }
 }

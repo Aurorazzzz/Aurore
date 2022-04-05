@@ -57,48 +57,58 @@ public abstract class Noeud {
     }
 
     public Noeud(double nx, double ny, Vecteur2D fc) {
-        this (nx, ny, -1, fc); 
+        this(nx, ny, -1, fc);
     }
 
     public Noeud(double nx, double ny) {
-        this (nx, ny, -1, new Vecteur2D(0, 0));
+        this(nx, ny, -1, new Vecteur2D(0, 0));
     }
-    
+
     public Noeud() {
-        this (0, 0, -1, new Vecteur2D(0, 0));
+        this(0, 0, -1, new Vecteur2D(0, 0));
     }
 
     @Override
     public String toString() {
-        return "(" + this.nx + " ; " + this.ny + " ; " + this.id + " ; (" + this.fc + ")";
+        return "(" + this.nx + " ; " + this.ny + " ;  " + this.id + " ; (" + this.fc + ")";
     }
 
     // Probleme
-    public Noeud entreeNoeud() { 
+    public Noeud entreeNoeud() {
         System.out.println("Enter 1 pour un NoeudSimple, 2 pour un NoeudAppuieSimple et 3 pour un NoeudAppuieDouble");
         int t = Lire.i();
-        while (t < 1 && t>3){
+        while (t < 1 && t > 3) {
             System.out.println("Entrer 1, 2 ou 3");
             t = Lire.i();
-        } 
+        }
+        System.out.println("Entrer x");
         double x = Lire.d();
+        System.out.println("Entrer y");
         double y = Lire.d();
+        System.out.println("Entrer x Vecteur");
+        long vx = Lire.l();
+        System.out.println("Entrer y Vecteur");
+        long vy = Lire.l();
         Noeud n;
-        if (t == 1){
-//            n.fc = entreeVect();
-             n = new NoeudSimple(x, y, -1, new Vecteur2D());    
-       }
-        if (t == 2){
-//            new Vecteur2D fc = entreeVect();
-             n = new NoeudAppuieSimple(x, y, -1, new Vecteur2D());    
-       }
-        else {
-//            n.fc = entreeVect();
-             n = new NoeudAppuieDouble(x, y, -1, new Vecteur2D());    
-       }
-    System.out.println(n.getClass());
-    return n; 
+        switch (t) {
+            case 1: {
+                n = new NoeudSimple(x, y, -1, new Vecteur2D(vx, vy));
+                break;
+            }
+
+            case 2: {
+                n = new NoeudAppuieSimple(x, y, -1, new Vecteur2D(vx, vy));
+                break;
+            }
+            default: {
+                n = new NoeudAppuieDouble(x, y, -1, new Vecteur2D(vx, vy));
+            }
+        }
+        System.out.println(n.getClass());
+        return n;
     }
+}
+
 // public void Test(){
 //        Noeud n2 = new NoeudSimple ();
 //        n2 = entreeNoeud();
@@ -109,5 +119,5 @@ public abstract class Noeud {
 //    public void main(String[] args) {
 //       Test();
 //    }
-}
+
     

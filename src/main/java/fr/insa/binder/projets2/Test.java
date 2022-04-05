@@ -20,7 +20,12 @@ public class Test {
     
     public static void main(String[] args) {
        Noeud n2 = new NoeudSimple ();
-       n2.entreeNoeud();
+//       n2 = n2.entreeNoeud();
        System.out.println(n2.toString());
+       Barre b2 = new Barre (1, new NoeudSimple(), new NoeudSimple(2, 5), 3, 56, 8);
+       System.out.println(b2.toString());
+       Noeud n = new NoeudSimple ();        
+       n2 = b2.noeudOppose(new NoeudSimple());
+       System.out.println(n.toString());
     }
 }
