@@ -17,15 +17,17 @@ public class Test {
 //        n2 = entreeNoeud();
 //
 //    }
-    
+
     public static void main(String[] args) {
-       Noeud n2 = new NoeudSimple ();
+        Noeud n2 = new NoeudSimple();
 //       n2 = n2.entreeNoeud();
-       System.out.println(n2.toString());
-       Barre b2 = new Barre (1, new NoeudSimple(), new NoeudSimple(2, 5), 3, 56, 8);
-       System.out.println(b2.toString());
-       Noeud n = new NoeudSimple ();        
-       n2 = b2.noeudOppose(new NoeudSimple());
-       System.out.println(n.toString());
+        System.out.println(n2.toString());
+        Barre b2 = new Barre(1, new NoeudSimple(3, -5), new NoeudSimple(4, 0), 3, 56, 8);
+        System.out.println(b2.toString());
+        Noeud n = new NoeudSimple(3, -5);
+        n2 = b2.noeudOppose(new NoeudSimple());
+        System.out.println(n2.toString());
+        double ang = b2.angle(n);
+        System.out.println(ang);
     }
 }

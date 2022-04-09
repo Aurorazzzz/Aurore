@@ -73,6 +73,15 @@ public abstract class Noeud {
         return "(" + this.nx + " ; " + this.ny + " ;  " + this.id + " ; (" + this.fc + ")";
     }
 
+    public boolean egal(Noeud n){
+        if ((this.nx == n.nx) && (this.ny == n.ny)){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    
     // Probleme
     public Noeud entreeNoeud() {
         System.out.println("Enter 1 pour un NoeudSimple, 2 pour un NoeudAppuieSimple et 3 pour un NoeudAppuieDouble");

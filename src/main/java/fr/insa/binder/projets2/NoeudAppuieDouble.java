@@ -29,5 +29,7 @@ public class NoeudAppuieDouble extends Noeud{
     public String toString() {
         return "Noeud Appuie Double : (" + this.getNx() + " ; " + this.getNy() + " ; " + this.getId() + " ; (" + this.getFc() + "))";
     }
+    
+    
 }
 

@@ -4,6 +4,10 @@
  */
 package fr.insa.binder.projets2;
 
+import static java.lang.Math.abs;
+import static java.lang.Math.atan;
+import static java.lang.Math.toDegrees;
+
 /**
  *
  * @author Aurore
@@ -115,17 +119,36 @@ public class Barre {
         return "Barre : (" + this.id + " ; (" + this.nd + ") ;  (" + this.na + ") ; " + this.tm + " ; " + this.cm + " ; " + this.ctm2 + ")";
     }
 
+
     public Noeud noeudOppose(Noeud n) {
-        if (n == this.nd) {
-            System.out.println("Noeud de départ");
+        if (this.nd.egal(n) == true) {
             return this.na;
-        } else if (n == this.na) {
-            System.out.println("Noeud d'arrivé");
+        } else if (this.na.egal(n) == true) {
             return this.nd;
         } else {
             System.out.println("Ce noeud ne fait pas parti de la barre");
             return n;
         }
 
+    }
+    
+    public double angle(Noeud nd){
+        Noeud na = this.noeudOppose(nd);
+        double x = na.getNx() - nd.getNx();
+        double y = na.getNy() - nd.getNy();
+        double ang = toDegrees(atan(abs(y/x)));
+        if ((y >= 0)&&(x>=0)){
+            return ang;
+        }
+        else if ((y < 0)&&(x>0)){
+            return -ang;
+        }
+        else if ((y <= 0)&&(x <= 0)){
+            return ang - 180;
+        }
+        else {
+            return 180 - ang;
+        }
+                
     }
 }
