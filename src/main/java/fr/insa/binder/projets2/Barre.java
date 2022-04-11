@@ -14,11 +14,12 @@ import static java.lang.Math.toDegrees;
  */
 public class Barre {
 
+   //** tm = traction maximal, cm = compression maximal, ctm = cout au mètre
     private Noeud nd;
     private Noeud na;
     private double tm;
     private double cm;
-    private double ctm2;
+    private double ctm;
     private int id;
 
     /**
@@ -78,17 +79,17 @@ public class Barre {
     }
 
     /**
-     * @return the ctm2
+     * @return the ctm
      */
-    public double getCtm2() {
-        return ctm2;
+    public double getCtm() {
+        return ctm;
     }
 
     /**
-     * @param ctm2 the ctm2 to set
+     * @param ctm the ctm to set
      */
-    public void setCtm2(double ctm2) {
-        this.ctm2 = ctm2;
+    public void setCtm(double ctm) {
+        this.ctm = ctm;
     }
 
     /**
@@ -105,18 +106,18 @@ public class Barre {
         this.id = id;
     }
 
-    public Barre(int id, Noeud nd, Noeud na, double tm, double cm, double ctm2) {
+    public Barre(int id, Noeud nd, Noeud na, double tm, double cm, double ctm) {
         this.id = id;
         this.nd = nd;
         this.na = na;
         this.tm = tm;
         this.cm = cm;
-        this.ctm2 = ctm2;
+        this.ctm = ctm;
     }
 
     @Override
     public String toString() {
-        return "Barre : (" + this.id + " ; (" + this.nd + ") ;  (" + this.na + ") ; " + this.tm + " ; " + this.cm + " ; " + this.ctm2 + ")";
+        return "Barre : (" + this.id + " ; (" + this.nd + ") ;  (" + this.na + ") ; " + this.tm + " ; " + this.cm + " ; " + this.ctm + ")";
     }
 
 
