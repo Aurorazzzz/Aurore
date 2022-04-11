@@ -129,6 +129,19 @@ public abstract class Noeud {
         System.out.println(n.getClass());
         return n;
     }
+
+    public void BarreIncidente() {
+        System.out.println("Barre Arrivées :");
+        int n = this.bArr.size();
+        for (int i = 0; i < n; i++) {
+            System.out.println(this.bArr.get(i));
+        }
+        System.out.println("Barre Depart :");
+        int k = this.bDep.size();
+        for (int i = 0; i < k; i++) {
+            System.out.println(this.bDep.get(i));
+        }
+    }
 }
 
 // public void Test(){

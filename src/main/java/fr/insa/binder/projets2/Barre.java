@@ -14,7 +14,7 @@ import static java.lang.Math.toDegrees;
  */
 public class Barre {
 
-   //** tm = traction maximal, cm = compression maximal, ctm = cout au mètre
+    //** tm = traction maximal, cm = compression maximal, ctm = cout au mètre
     private Noeud nd;
     private Noeud na;
     private double tm;
@@ -34,6 +34,9 @@ public class Barre {
      */
     public void setNd(Noeud nd) {
         this.nd = nd;
+        if (nd.getbDep().contains(this) == false) {
+            nd.getbDep().add(this);
+        }
     }
 
     /**
@@ -48,6 +51,9 @@ public class Barre {
      */
     public void setNa(Noeud na) {
         this.na = na;
+        if (na.getbDep().contains(this) == false) {
+            na.getbArr().add(this);
+        }
     }
 
     /**
@@ -113,13 +119,18 @@ public class Barre {
         this.tm = tm;
         this.cm = cm;
         this.ctm = ctm;
+        if (nd.getbDep().contains(this) == false) {
+            nd.getbDep().add(this);
+        }
+        if (na.getbDep().contains(this) == false) {
+            na.getbArr().add(this);
+        }
     }
 
     @Override
     public String toString() {
         return "Barre : (" + this.id + " ; (" + this.nd + ") ;  (" + this.na + ") ; " + this.tm + " ; " + this.cm + " ; " + this.ctm + ")";
     }
-
 
     public Noeud noeudOppose(Noeud n) {
         if (this.nd.egal(n) == true) {
@@ -132,25 +143,22 @@ public class Barre {
         }
 
     }
-    
-    public double angle(Noeud nd){
+
+    public double angle(Noeud nd) {
         Noeud na = this.noeudOppose(nd);
         double x = na.getNx() - nd.getNx();
         double y = na.getNy() - nd.getNy();
-        double ang = toDegrees(atan(abs(y/x)));
-        if ((y >= 0)&&(x>=0)){
+        double ang = toDegrees(atan(abs(y / x)));
+        if ((y >= 0) && (x >= 0)) {
             return ang;
-        }
-        else if ((y < 0)&&(x>0)){
+        } else if ((y < 0) && (x > 0)) {
             return -ang;
-        }
-        else if ((y <= 0)&&(x <= 0)){
+        } else if ((y <= 0) && (x <= 0)) {
             return ang - 180;
-        }
-        else {
+        } else {
             return 180 - ang;
         }
-                
+
     }
     // Salut je m'appel Aurora
 }
