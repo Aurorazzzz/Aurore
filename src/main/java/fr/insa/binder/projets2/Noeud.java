@@ -5,6 +5,7 @@
 package fr.insa.binder.projets2;
 
 import fr.insa.binder.projets2.utils.Lire;
+import java.util.ArrayList;
 
 /**
  *
@@ -16,6 +17,16 @@ public abstract class Noeud {
     private double ny;
     private int id;
     private Vecteur2D fc;
+    private ArrayList<Barre> bDep;
+    private ArrayList<Barre> bArr;
+
+    public ArrayList<Barre> getbDep() {
+        return bDep;
+    }
+
+    public ArrayList<Barre> getbArr() {
+        return bArr;
+    }
 
     public double getNx() {
         return this.nx;
@@ -54,6 +65,9 @@ public abstract class Noeud {
         this.fc = fc;
         this.id = id;
         this.ny = ny;
+        this.bArr = new ArrayList<>();
+        this.bDep = new ArrayList<>();
+//        this.bArr = new ArrayList<Barre> (); ?????
     }
 
     public Noeud(double nx, double ny, Vecteur2D fc) {
@@ -73,15 +87,14 @@ public abstract class Noeud {
         return "(" + this.nx + " ; " + this.ny + " ;  " + this.id + " ; (" + this.fc + ")";
     }
 
-    public boolean egal(Noeud n){
-        if ((this.nx == n.nx) && (this.ny == n.ny)){
+    public boolean egal(Noeud n) {
+        if ((this.nx == n.nx) && (this.ny == n.ny)) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }
-    
+
     // Probleme
     public Noeud entreeNoeud() {
         System.out.println("Enter 1 pour un NoeudSimple, 2 pour un NoeudAppuieSimple et 3 pour un NoeudAppuieDouble");
@@ -129,4 +142,3 @@ public abstract class Noeud {
 //       Test();
 //    }
 
-    
