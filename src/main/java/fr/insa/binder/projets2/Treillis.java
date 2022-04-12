@@ -70,4 +70,24 @@ public class Treillis {
             return max;
         }
     }
+        
+        public void ajouteNoeud(Noeud n){
+            if (this.LN.contains(n) == true){
+                System.out.println("Le Noeud est déjà dans le treillis");    
+            }
+            else{
+                n.setId(this.maxIdNoeud() + 1);
+                this.LN.add(n);
+            }
+        }
+        
+                public void ajouteBarre(Barre b){
+            if (this.LB.contains(b) == true){
+                System.out.println("La Barre est déjà dans le treillis");    
+            }
+            else{
+                b.setId(this.maxIdBarre() + 1);
+                this.LB.add(b);
+            }
+        }
     }

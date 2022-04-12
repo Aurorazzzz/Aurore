@@ -155,3 +155,8 @@ public abstract class Noeud {
 //       Test();
 //    }
 
+//    // Créer une liste de contenu unique basée sur les éléments de ArrayList
+//    Set<String> mySet = new HashSet<String>(array_L);
+// 
+//    // Créer une Nouvelle ArrayList à partir de Set
+//    List<String> array_L2 = new ArrayList<String>(mySet);
