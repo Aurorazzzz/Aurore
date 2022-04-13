@@ -37,6 +37,11 @@ public class Treillis {
         this.LB = LB;
     }
 
+    public Treillis() {
+        this.LN = new ArrayList<Noeud>();
+        this.LB = new ArrayList<Barre>();
+    }
+
     @Override
     public String toString() {
         return "Treillis{" + "LN=" + this.LN + ", LB=" + this.LB + '}';
@@ -48,15 +53,17 @@ public class Treillis {
         for (Noeud noeud : this.LN) {
             System.out.println(noeud.toString());
         }
+        System.out.println("");
         System.out.println("Voici la liste des barres du treillis :");
         System.out.println("");
         for (Barre barre : this.LB) {
             System.out.println(barre.toString());
         }
+        System.out.println("");
     }
 
     public int maxIdNoeud() {
-        if (this.LN == null) {
+        if (this.LN.isEmpty()) {
             return 0;
         } else {
             int n = this.LN.size();
@@ -71,7 +78,7 @@ public class Treillis {
     }
 
     public int maxIdBarre() {
-        if (this.LB == null) {
+        if (this.LB.isEmpty()) {
             return 0;
         } else {
             int n = this.LB.size();
@@ -86,7 +93,7 @@ public class Treillis {
     }
 
     public void ajouteNoeud(Noeud n) {
-        if (this.LN.contains(n) == true) {
+        if (this.contient(n) == true) {
             System.out.println("Le Noeud est déjà dans le treillis");
         } else {
             n.setId(this.maxIdNoeud() + 1);
@@ -95,7 +102,7 @@ public class Treillis {
     }
 
     public void ajouteBarre(Barre b) {
-        if (this.LB.contains(b) == true) {
+        if (this.contient(b) == true) {
             System.out.println("La Barre est déjà dans le treillis");
         } else {
             if (this.LN.contains(b.getNd()) == false) {
@@ -117,14 +124,14 @@ public class Treillis {
             i = i + 1;
         }
         int n = Lire.i();
-        while ((n < 1) && (n >= 1)){
+        while ((n < 1) || (n >= i)) {
             System.out.println("Mauvais numero entré, resaissir");
             n = Lire.i();
         }
-        return this.LN.get(n-1);
+        return this.LN.get(n - 1);
     }
-    
-        public Barre choisiBarre() {
+
+    public Barre choisiBarre() {
         System.out.println("Entrez le numero qui s'affiche devant la Barre que vous voulez ajouter :");
         int i = 1;
         for (Barre barre : this.LB) {
@@ -132,11 +139,11 @@ public class Treillis {
             i = i + 1;
         }
         int n = Lire.i();
-        while ((n < 1) && (n >= 1)){
+        while ((n < 1) || (n >= i)) {
             System.out.println("Mauvais numero entré, resaissir");
             n = Lire.i();
         }
-        return this.LB.get(n-1);
+        return this.LB.get(n - 1);
     }
 
     public int choixTexte() {
@@ -148,11 +155,35 @@ public class Treillis {
         System.out.println("- 5 pour supprimer un noeud (toutes les barres adjacentes au noeud seront supprimées)");
         System.out.println("- 6 pour sortir");
         int n = Lire.i();
-        while (n < 1 && n > 6) {
+        while (n < 1 || n > 6) {
             System.out.println("Entrez 1, 2, 3, 4, 5 ou 6");
             n = Lire.i();
         }
         return n;
+    }
+
+    public boolean contient(Noeud n) {
+        int k = this.LN.size();
+        int i = 0;
+        boolean boo = false;
+        while (boo == false && i < k) {
+            boo = this.LN.get(i).egal(n);
+            i = i + 1;
+        }
+        return boo;
+    }
+
+    public boolean contient(Barre b) {
+        int k = this.LB.size();
+        int i = 0;
+        boolean boo = false;
+        while (boo == false && i < k) {
+            if ((b.getNa().egal(this.LB.get(i).getNa()) == true && b.getNd().egal(this.LB.get(i).getNd()) == true) || (b.getNa().egal(this.LB.get(i).getNd()) == true && b.getNd().egal(this.LB.get(i).getNa()))) {
+                boo = true;
+            }
+            i = i + 1;
+        }
+        return boo;
     }
 
     public void menuTexte() {
@@ -161,25 +192,48 @@ public class Treillis {
             int n = this.choixTexte();
             switch (n) {
                 case 1: {
+                    System.out.println("Afficher Treillis");
                     this.Affiche();
+                    break;
                 }
                 case 2: {
+                    System.out.println("Nouveau noeud");
                     Noeud ns = new NoeudSimple();
                     ns = ns.entreeNoeud();
                     this.ajouteNoeud(ns);
+                    break;
                 }
+
                 case 3: {
-                    Barre b = new Barre (1, this.choisiNoeud(), this.choisiNoeud(), 0, 0, 0);
+                    System.out.println("Nouvelle Barre");
+                    Barre b = new Barre(1, this.choisiNoeud(), this.choisiNoeud(), 0, 0, 0);
                     this.ajouteBarre(b);
+                    break;
                 }
                 case 4: {
+                    System.out.println("Supprimer Barre");
                     Barre b = new Barre();
+                    b = this.choisiBarre();
                     boolean bool = this.LB.remove(b);
+                    break;
                 }
-                case 5:{
+                case 5: {
+                    System.out.println("Supprimer Noeud");
                     Noeud nss = new NoeudSimple();
+                    nss = this.choisiNoeud();
                     this.LN.remove(nss);
-                    nss.getbArr()
+                    for (Barre barre : nss.getbArr()) {
+                        boolean bool = this.LB.remove(barre);
+                    }
+                    for (Barre barre : nss.getbDep()) {
+                        boolean bool = this.LB.remove(barre);
+                    }
+                    break;
+                }
+                case 6: {
+                    System.out.println("Dehors");
+                    boo = true;
+                    break;
                 }
             }
         }

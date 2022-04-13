@@ -107,7 +107,7 @@ public abstract class Noeud {
     public Noeud entreeNoeud() {
         System.out.println("Enter 1 pour un NoeudSimple, 2 pour un NoeudAppuieSimple et 3 pour un NoeudAppuieDouble");
         int t = Lire.i();
-        while (t < 1 && t > 3) {
+        while (t < 1 || t > 3) {
             System.out.println("Entrer 1, 2 ou 3");
             t = Lire.i();
         }
