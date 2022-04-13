@@ -126,6 +126,10 @@ public class Barre {
             na.getbArr().add(this);
         }
     }
+    
+    public Barre(){
+        this(0, new NoeudSimple(), new NoeudSimple(), 0, 0, 0);
+    }
 
     @Override
     public String toString() {

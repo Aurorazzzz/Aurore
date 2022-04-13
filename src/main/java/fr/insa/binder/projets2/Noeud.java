@@ -20,6 +20,14 @@ public abstract class Noeud {
     private ArrayList<Barre> bDep;
     private ArrayList<Barre> bArr;
 
+    public void setbDep(ArrayList<Barre> bDep) {
+        this.bDep = bDep;
+    }
+
+    public void setbArr(ArrayList<Barre> bArr) {
+        this.bArr = bArr;
+    }
+
     public ArrayList<Barre> getbDep() {
         return bDep;
     }

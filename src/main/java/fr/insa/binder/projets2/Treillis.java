@@ -4,8 +4,8 @@
  */
 package fr.insa.binder.projets2;
 
+import fr.insa.binder.projets2.utils.Lire;
 import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  *
@@ -42,6 +42,19 @@ public class Treillis {
         return "Treillis{" + "LN=" + this.LN + ", LB=" + this.LB + '}';
     }
 
+    public void Affiche() {
+        System.out.println("Voici la liste des noeuds du treillis :");
+        System.out.println("");
+        for (Noeud noeud : this.LN) {
+            System.out.println(noeud.toString());
+        }
+        System.out.println("Voici la liste des barres du treillis :");
+        System.out.println("");
+        for (Barre barre : this.LB) {
+            System.out.println(barre.toString());
+        }
+    }
+
     public int maxIdNoeud() {
         if (this.LN == null) {
             return 0;
@@ -56,7 +69,8 @@ public class Treillis {
             return max;
         }
     }
-        public int maxIdBarre() {
+
+    public int maxIdBarre() {
         if (this.LB == null) {
             return 0;
         } else {
@@ -70,24 +84,105 @@ public class Treillis {
             return max;
         }
     }
-        
-        public void ajouteNoeud(Noeud n){
-            if (this.LN.contains(n) == true){
-                System.out.println("Le Noeud est déjà dans le treillis");    
-            }
-            else{
-                n.setId(this.maxIdNoeud() + 1);
-                this.LN.add(n);
-            }
-        }
-        
-                public void ajouteBarre(Barre b){
-            if (this.LB.contains(b) == true){
-                System.out.println("La Barre est déjà dans le treillis");    
-            }
-            else{
-                b.setId(this.maxIdBarre() + 1);
-                this.LB.add(b);
-            }
+
+    public void ajouteNoeud(Noeud n) {
+        if (this.LN.contains(n) == true) {
+            System.out.println("Le Noeud est déjà dans le treillis");
+        } else {
+            n.setId(this.maxIdNoeud() + 1);
+            this.LN.add(n);
         }
     }
+
+    public void ajouteBarre(Barre b) {
+        if (this.LB.contains(b) == true) {
+            System.out.println("La Barre est déjà dans le treillis");
+        } else {
+            if (this.LN.contains(b.getNd()) == false) {
+                this.LN.add(b.getNd());
+            }
+            if (this.LN.contains(b.getNa()) == false) {
+                this.LN.add(b.getNa());
+            }
+            b.setId(this.maxIdBarre() + 1);
+            this.LB.add(b);
+        }
+    }
+
+    public Noeud choisiNoeud() {
+        System.out.println("Entrez le numero qui s'affiche devant le Noeud que vous voulez ajouter :");
+        int i = 1;
+        for (Noeud noeud : this.LN) {
+            System.out.println(i + "   " + noeud.toString());
+            i = i + 1;
+        }
+        int n = Lire.i();
+        while ((n < 1) && (n >= 1)){
+            System.out.println("Mauvais numero entré, resaissir");
+            n = Lire.i();
+        }
+        return this.LN.get(n-1);
+    }
+    
+        public Barre choisiBarre() {
+        System.out.println("Entrez le numero qui s'affiche devant la Barre que vous voulez ajouter :");
+        int i = 1;
+        for (Barre barre : this.LB) {
+            System.out.println(i + "   " + barre.toString());
+            i = i + 1;
+        }
+        int n = Lire.i();
+        while ((n < 1) && (n >= 1)){
+            System.out.println("Mauvais numero entré, resaissir");
+            n = Lire.i();
+        }
+        return this.LB.get(n-1);
+    }
+
+    public int choixTexte() {
+        System.out.println("Tapez :");
+        System.out.println("- 1 pour afficher le treillis");
+        System.out.println("- 2 pour creer un nouveau noeud");
+        System.out.println("- 3 pour creer une barre entre deux noeud");
+        System.out.println("- 4 pour supprimer une barre");
+        System.out.println("- 5 pour supprimer un noeud (toutes les barres adjacentes au noeud seront supprimées)");
+        System.out.println("- 6 pour sortir");
+        int n = Lire.i();
+        while (n < 1 && n > 6) {
+            System.out.println("Entrez 1, 2, 3, 4, 5 ou 6");
+            n = Lire.i();
+        }
+        return n;
+    }
+
+    public void menuTexte() {
+        boolean boo = false;
+        while (boo == false) {
+            int n = this.choixTexte();
+            switch (n) {
+                case 1: {
+                    this.Affiche();
+                }
+                case 2: {
+                    Noeud ns = new NoeudSimple();
+                    ns = ns.entreeNoeud();
+                    this.ajouteNoeud(ns);
+                }
+                case 3: {
+                    Barre b = new Barre (1, this.choisiNoeud(), this.choisiNoeud(), 0, 0, 0);
+                    this.ajouteBarre(b);
+                }
+                case 4: {
+                    Barre b = new Barre();
+                    boolean bool = this.LB.remove(b);
+                }
+                case 5:{
+                    Noeud nss = new NoeudSimple();
+                    this.LN.remove(nss);
+                    nss.getbArr()
+                }
+            }
+        }
+
+    }
+}
