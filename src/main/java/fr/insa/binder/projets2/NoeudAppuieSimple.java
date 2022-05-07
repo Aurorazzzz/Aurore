@@ -8,25 +8,35 @@ package fr.insa.binder.projets2;
  *
  * @author Aurore
  */
-public class NoeudAppuieSimple extends Noeud{
-    
-     public NoeudAppuieSimple(double nx, double ny, int id, Vecteur2D fc){
-        super ( nx,  ny,  id,  fc);
+public class NoeudAppuieSimple extends NoeudAppuie {
+
+    public NoeudAppuieSimple(double nx, double ny, int id, Vecteur2D fc) {
+        super(nx, ny, id, fc);
+        this.setType(2);
+
     }
 
-    public NoeudAppuieSimple(double nx, double ny, Vecteur2D fc){
-        super ( nx,  ny,  fc);
-    }
-    
-    public NoeudAppuieSimple(double nx, double ny){
-        super (nx, ny);
+    public NoeudAppuieSimple(double nx, double ny, Vecteur2D fc) {
+        super(nx, ny, fc);
+        this.setType(2);
+
     }
 
-     public NoeudAppuieSimple(){
-        super ();
+    public NoeudAppuieSimple(double nx, double ny) {
+        super(nx, ny);
+        this.setType(2);
+
     }
+
+    public NoeudAppuieSimple() {
+        super();
+        this.setType(2);
+
+    }
+
     @Override
     public String toString() {
         return "Noeud Appuie Simple (" + this.getNx() + " ; " + this.getNy() + " ; " + this.getId() + " ; (" + this.getFc() + "))";
     }
+
 }

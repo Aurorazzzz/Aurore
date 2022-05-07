@@ -15,6 +15,8 @@ public class Treillis {
 
     private ArrayList<Noeud> LN;
     private ArrayList<Barre> LB;
+    private Matrice m;
+    private ArrayList<Barre> Terrain;
 
     public ArrayList<Noeud> getLN() {
         return LN;
@@ -35,11 +37,18 @@ public class Treillis {
     public Treillis(ArrayList<Noeud> LN, ArrayList<Barre> LB) {
         this.LN = LN;
         this.LB = LB;
+        for (Barre barre : this.LB) {
+            if (barre.getType() == 1){
+                this.Terrain.add(barre);
+            }
+        }
+        
     }
 
     public Treillis() {
         this.LN = new ArrayList<Noeud>();
         this.LB = new ArrayList<Barre>();
+        this.Terrain = new ArrayList<Barre>();
     }
 
     @Override
@@ -111,6 +120,9 @@ public class Treillis {
             if (this.LN.contains(b.getNa()) == false) {
                 this.LN.add(b.getNa());
             }
+            if (b.getType() == 1){
+                this.Terrain.add(b);
+            }
             b.setId(this.maxIdBarre() + 1);
             this.LB.add(b);
         }
@@ -154,6 +166,7 @@ public class Treillis {
         System.out.println("- 4 pour supprimer une barre");
         System.out.println("- 5 pour supprimer un noeud (toutes les barres adjacentes au noeud seront supprimées)");
         System.out.println("- 6 pour sortir");
+        System.out.println("- 7 pour afficher la matrice");
         int n = Lire.i();
         while (n < 1 || n > 6) {
             System.out.println("Entrez 1, 2, 3, 4, 5 ou 6");
@@ -186,6 +199,7 @@ public class Treillis {
         return boo;
     }
 
+    //Pb Controle de saisie !!!!!!!!!!!!!!
     public void menuTexte() {
         boolean boo = false;
         while (boo == false) {
@@ -235,8 +249,172 @@ public class Treillis {
                     boo = true;
                     break;
                 }
+                case 7: {
+                    Matrice m = this.defM();
+                }
             }
         }
 
+    }
+
+    /**
+     * @return the m
+     */
+    public Matrice getM() {
+        return m;
+    }
+
+    /**
+     * @param m the m to set
+     */
+    public void setM(Matrice m) {
+        this.m = m;
+    }
+
+    public int reacAD(Noeud n) {
+        if (n.getType() == 3) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    public int reacAS(Noeud n) {
+        if (n.getType() == 2) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    /**
+     * Remplir matrice: 1. tension barre (par ordre croissant des barres ds
+     * l'ArrayList), 2. reaction en x des AP (par ordre croissant des noeud ds
+     * l'ArrayList) 3. reaction en y des AP (idem) 4. reaction en x ou y des AS
+     * (idem)
+     *
+     * Lignes: par ordre croissant des noeuds ds l'ArrayList (x puis y)
+     *
+     */
+    public Matrice defM() {
+        int n = this.nbrI();
+//        System.out.println(n);
+        if (n == -1) {
+            return new Matrice(0, 0);
+        } else {
+            this.m = new Matrice(n, n + 1);
+            // Collone 1:
+            int i = 0;
+            int k = 0;
+//            int j = 0;
+            // Remplissages des premieres collones (autant que de barres)
+            for (Barre barre : this.LB) {
+                for (Noeud noeud : this.LN) {
+                    // Coordonnées en X
+                    this.m.set(k, i, noeud.coefxb(barre));
+                    k = k + 1;
+                }
+                for (Noeud noeud : this.LN) {
+                    //Coordonnées en Y
+                    this.m.set(k, i,  noeud.coefyb(barre));
+                    k = k + 1;
+                }
+//                j = 0;
+                k = 0;
+                i = i + 1;
+            }
+//            System.out.println(m.toString());
+
+             //Remplissage des collones NoeudDouble
+            int b = 0;
+            for (Noeud noeud : this.LN) {
+                if (noeud.getType() == 3) {
+                    // Pas forcement utile,la matrice est de base avec des zeros
+                    for (int a = 0; a < n; a++) {
+                        this.m.set(a, i, 0);
+                    }
+                    this.m.set(b, i, 1);
+                    this.m.set(b + (n/2), i + 1, 1);
+                    i = i + 2;
+                }
+                b = b + 1;
+            }
+//            System.out.println(m.toString());
+            //Remplissage des collones NoeudAppuieSimple (Marche que si le treillies est a l'horizontal)
+            b = 0;
+            for (Noeud noeud : this.LN) {
+                if (noeud.getType() == 2) {
+                    // idem, pas utils ?
+                    for (int a = 0; a < n; a++) {
+                        this.m.set(a, i, 0);
+                    }
+                    this.m.set(b, i, noeud.coefyb(this.Terrain.get(0)));
+//                    this.m.set(b, i, 1);
+                    this.m.set(b + (n/2), i, noeud.coefxb(this.Terrain.get(0)));
+                    i = i + 1;
+                }
+                b = b + 1;
+            }
+//            System.out.println(m.toString());
+//            //Remplissage de la derniere collone (avec des 0 ou les coordonnées des forces)
+            b = 0;
+            for (Noeud noeud : this.LN) {
+                this.m.set(b, i, noeud.getFc().getVx());
+                b = b + 1;
+            }
+            for (Noeud noeud : this.LN) {
+                this.m.set(b, i, noeud.getFc().getVy());
+                b = b + 1;
+            }
+            System.out.println(m.toString());
+            return m;
+        }
+    }
+
+    public int nbrAD() {
+        int i = 0;
+        for (Noeud noeud : this.LN) {
+            if (noeud.getType() == 3) {
+                i = i + 1;
+            }
+        }
+        return i;
+    }
+
+    public int nbrAS() {
+        int i = 0;
+        for (Noeud noeud : this.LN) {
+            if (noeud.getType() == 2) {
+                i = i + 1;
+            }
+        }
+        return i;
+    }
+
+    public int nbrI() {
+        int b = this.LB.size();
+        int AS = this.nbrAS();
+        int AD = this.nbrAD();
+        int n = this.LN.size();
+        if (b + AS + 2 * AD != 2 * n) {
+            System.out.println("Ce treillis ne peut pas être résolu... Veuillez redefinir les appuies.");
+            return -1;
+        } else {
+            return 2 * n;
+        }
+    }
+
+    /**
+     * @return the Terrain
+     */
+    public ArrayList<Barre> getTerrain() {
+        return Terrain;
+    }
+
+    /**
+     * @param Terrain the Terrain to set
+     */
+    public void setTerrain(ArrayList<Barre> Terrain) {
+        this.Terrain = Terrain;
     }
 }

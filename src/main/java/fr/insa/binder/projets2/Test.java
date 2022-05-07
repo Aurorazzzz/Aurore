@@ -4,6 +4,8 @@
  */
 package fr.insa.binder.projets2;
 
+import static java.lang.Math.cos;
+
 /**
  *
  * @author Aurore
@@ -18,7 +20,6 @@ public class Test {
 //
 //    }
 
-    public static void main(String[] args) {
 //        Noeud n2 = new NoeudSimple();
 ////       n2 = n2.entreeNoeud();
 //        System.out.println(n2.toString());
@@ -46,7 +47,31 @@ public class Test {
 //        A2.add(b3);
 //
 //        Treillis T = new Treillis(A1, A2);
+    public static void main(String[] args) {
         Treillis T = new Treillis();
-        T.menuTexte();
+        Noeud n1 = new NoeudAppuieSimple(0, 0, new Vecteur2D(0, 0));
+        Noeud n2 = new NoeudAppuieDouble(2, 0, new Vecteur2D(0, 0));
+        Noeud n3 = new NoeudSimple(1, 1, new Vecteur2D(1000, 0));
+        T.ajouteNoeud(n1);
+        T.ajouteNoeud(n2);
+        T.ajouteNoeud(n3);
+        Barre b1 = new Barre(n1, n2);
+        Barre b2 = new Barre(n2, n3);
+        Barre b3 = new Barre(n1, n3);
+        T.ajouteBarre(b3);
+        T.ajouteBarre(b2);
+        T.ajouteBarre(b1);
+        T.Affiche();
+//        double tt = cos(Math.PI);
+//        double tb = cos(-Math.PI);
+////        double tb = n1.coefxb(T.getTerrain().get(0));
+//        System.out.println(tt);
+//        System.out.println(tb);
+//        double ang = b1.angle(n2);
+//        System.out.println(ang);
+//        String.valueOf(ang);
+
+        Matrice m = T.defM();
+//        T.menuTexte();
     }
 }

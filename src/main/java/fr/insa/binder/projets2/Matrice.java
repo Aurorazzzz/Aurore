@@ -29,17 +29,19 @@ public class Matrice {
     public String toString() {
         for (int i = 0; i < l; i++) {
             for (int k = 0; k < c; k++) {
-                System.out.print(String.format("%+4.2E", this.coef[i][k]));
+                System.out.print(String.format("%+4.2E", this.coef[i][k]) + "   ");
+//                System.out.print("   " + this.coef[i][k]);
             }
             System.out.println();
         }
         return "bof";
     }
-    public static void main(String[] args) {
-        Matrice m = new Matrice(4, 7);
-        m.set (0, 0, 9);
-        String s = m.toString();
-    }
+
+//    public static void main(String[] args) {
+//        Matrice m = new Matrice(4, 7);
+//        m.set(0, 0, 9);
+//        String s = m.toString();
+//    }
 
     public int getC() {
         return c;
@@ -56,12 +58,21 @@ public class Matrice {
     public void setL(int l) {
         this.l = l;
     }
-    
-    public double get(int i, int j){
-        return this.coef [i][j];
+
+    public double get(int i, int j) {
+        return this.coef[i][j];
     }
-    
-    public void set(int i, int j, double x){
-        this.coef [i][j] = x;
+
+    public void set(int i, int j, double x) {
+        this.coef[i][j] = x;
+    }
+
+    public static void main(String[] args) {
+        Matrice m = new Matrice(5, 5);
+        m.set(1, 1, 5);
+        m.set(0, 0, 9);
+
+        m.toString();
+
     }
 }
