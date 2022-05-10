@@ -39,4 +39,10 @@ public class NoeudAppuieSimple extends NoeudAppuie {
         return "Noeud Appuie Simple (" + this.getNx() + " ; " + this.getNy() + " ; " + this.getId() + " ; (" + this.getFc() + "))";
     }
 
+//    public static void main(String[] args) {
+//        Noeud n = new NoeudAppuieSimple(0, 0);
+//        Vecteur2D q = new Vecteur2D();
+//        q = n.Normale();
+//        System.out.println(q.toString());
+//    }
 }
