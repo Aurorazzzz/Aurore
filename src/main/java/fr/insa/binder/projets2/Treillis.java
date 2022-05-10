@@ -16,7 +16,8 @@ public class Treillis {
     private ArrayList<Noeud> LN;
     private ArrayList<Barre> LB;
     private Matrice m;
-    private ArrayList<Barre> Terrain;
+//    private ArrayList<Barre> Terrain;
+    private ArrayList<Noeud> Appuis;
 
     public ArrayList<Noeud> getLN() {
         return LN;
@@ -34,21 +35,20 @@ public class Treillis {
         this.LB = LB;
     }
 
-    public Treillis(ArrayList<Noeud> LN, ArrayList<Barre> LB) {
-        this.LN = LN;
-        this.LB = LB;
-        for (Barre barre : this.LB) {
-            if (barre.getType() == 1){
-                this.Terrain.add(barre);
-            }
-        }
-        
-    }
-
+//    public Treillis(ArrayList<Noeud> LN, ArrayList<Barre> LB) {
+//        this.LN = LN;
+//        this.LB = LB;
+//        for (Barre barre : this.LB) {
+//            if (barre.getType() == 1){
+//                this.Terrain.add(barre);
+//            }
+//        }
+//        
+//    }
     public Treillis() {
         this.LN = new ArrayList<Noeud>();
         this.LB = new ArrayList<Barre>();
-        this.Terrain = new ArrayList<Barre>();
+        this.Appuis = new ArrayList<Noeud>();
     }
 
     @Override
@@ -104,29 +104,102 @@ public class Treillis {
     public void ajouteNoeud(Noeud n) {
         if (this.contient(n) == true) {
             System.out.println("Le Noeud est déjà dans le treillis");
+//        } else if (this.Appuis.size() > 2){
+//            System.out.println("Trop de noeud appuie... (definir un terrain si on veut en mettre plus");
+           
         } else {
-            n.setId(this.maxIdNoeud() + 1);
-            this.LN.add(n);
+            if ((n.getType() == 3) || (n.getType() == 2)) {
+//                if (this.Appuis.size() == 2) {
+//                    System.out.println("Trop de noeud Appuie...");
+//                }
+//                else {
+//                    this.LN.add(n);
+//                    n.setId(this.maxIdNoeud() + 1);
+//                    this.Appuis.add(n);
+//                   
+//                }
+                    this.LN.add(n);
+                    n.setId(this.maxIdNoeud() + 1);
+                    this.Appuis.add(n);
+            } else {
+                n.setId(this.maxIdNoeud() + 1);
+                this.LN.add(n);
+                
+            }
+
         }
     }
 
     public void ajouteBarre(Barre b) {
         if (this.contient(b) == true) {
             System.out.println("La Barre est déjà dans le treillis");
-        } else {
+        } //else {
+        //            if ((this.ajouteNoeud(b.getNd()) == true)&&(this.ajouteNoeud(b.getNd()) == true)){
+        //                
+        //            }
+        else {
             if (this.LN.contains(b.getNd()) == false) {
-                this.LN.add(b.getNd());
+                this.ajouteNoeud(b.getNd());
             }
             if (this.LN.contains(b.getNa()) == false) {
-                this.LN.add(b.getNa());
+                this.ajouteNoeud(b.getNa());
             }
-            if (b.getType() == 1){
-                this.Terrain.add(b);
-            }
+//            if (b.getType() == 1) {
+//                this.Terrain.add(b);
+//            }
             b.setId(this.maxIdBarre() + 1);
             this.LB.add(b);
+//            if (this.ajouteNoeud(b.getNd()) == false) {
+//                
+//            }
         }
+
     }
+//            if ((this.LN.contains(b.getNd()) == false) && (this.ajouteNoeud(b.getNd()) == true)) {
+//                this.ajouteNoeud(b.getNd());
+//                b.setId(this.maxIdBarre() + 1);
+//                this.LB.add(b);
+//            }
+//            else {
+//                System.out.println("Trop de noeud appuie, il ne peut y en avoir que 2. Impossible d'ajouter la barre" + b.toString());
+//            }
+//            if ((this.LN.contains(b.getNa()) == false) && (this.ajouteNoeud(b.getNa())) == true) {
+//                this.ajouteNoeud(b.getNa());
+//                b.setId(this.maxIdBarre() + 1);
+//                this.LB.add(b);
+//            }
+//            else {
+//                System.out.println("Trop de noeud appuie, il ne peut y en avoir que 2. Impossible d'ajouter la barre" + b.toString());
+//            }
+////            if (b.getType() == 1){
+////                this.Terrain.add(b);
+////            }
+//            if ((this.LN.contains(b.getNa()) == true) && (this.LN.contains(b.getNd()) == true)) {
+//                b.setId(this.maxIdBarre() + 1);
+//                this.LB.add(b);
+//            }
+
+//    public int ContNoeud(){
+//        int i = 0;
+//        for (Noeud noeud : this.LN) {
+//            if ((noeud.getType() == 2)||(noeud.getType() == 3)){
+//                i = i + 1;
+//            }
+//        }
+//        if (i < 2){
+//            return 0;
+//        }
+//        else if (i == 2){
+//            return 1;
+//        }
+//        else{
+//            return 2;
+//        }
+//    }
+//    public void Terrain() {
+//        Barre b = new Barre(this.Appuis.get(0), this.Appuis.get(1));
+//        this.Terrain.add(b);
+//    }
 
     public Noeud choisiNoeud() {
         System.out.println("Entrez le numero qui s'affiche devant le Noeud que vous voulez ajouter :");
@@ -168,8 +241,8 @@ public class Treillis {
         System.out.println("- 6 pour sortir");
         System.out.println("- 7 pour afficher la matrice");
         int n = Lire.i();
-        while (n < 1 || n > 6) {
-            System.out.println("Entrez 1, 2, 3, 4, 5 ou 6");
+        while (n < 1 || n > 7) {
+            System.out.println("Entrez 1, 2, 3, 4, 5, 6 ou 7");
             n = Lire.i();
         }
         return n;
@@ -199,7 +272,7 @@ public class Treillis {
         return boo;
     }
 
-    //Pb Controle de saisie !!!!!!!!!!!!!!
+    //Pb Controle de saisie !!!!!!!!!!!!!! C'est bon, pb reglé
     public void menuTexte() {
         boolean boo = false;
         while (boo == false) {
@@ -288,21 +361,26 @@ public class Treillis {
     }
 
     /**
-     * Remplir matrice: 1. tension barre (par ordre croissant des barres ds
+     * Remplir matrice: 1.tension barre (par ordre croissant des barres ds
      * l'ArrayList), 2. reaction en x des AP (par ordre croissant des noeud ds
      * l'ArrayList) 3. reaction en y des AP (idem) 4. reaction en x ou y des AS
      * (idem)
      *
      * Lignes: par ordre croissant des noeuds ds l'ArrayList (x puis y)
      *
+     * @return
      */
     public Matrice defM() {
         int n = this.nbrI();
 //        System.out.println(n);
         if (n == -1) {
             return new Matrice(0, 0);
+        } else if (this.Appuis.size() == 1) {
+            System.out.println("Il manque un appuie dans le treillis");
+            return new Matrice(0, 0);
         } else {
             this.m = new Matrice(n, n + 1);
+//            this.Terrain();
             // Collone 1:
             int i = 0;
             int k = 0;
@@ -316,7 +394,7 @@ public class Treillis {
                 }
                 for (Noeud noeud : this.LN) {
                     //Coordonnées en Y
-                    this.m.set(k, i,  noeud.coefyb(barre));
+                    this.m.set(k, i, noeud.coefyb(barre));
                     k = k + 1;
                 }
 //                j = 0;
@@ -325,7 +403,7 @@ public class Treillis {
             }
 //            System.out.println(m.toString());
 
-             //Remplissage des collones NoeudDouble
+            //Remplissage des collones NoeudDouble
             int b = 0;
             for (Noeud noeud : this.LN) {
                 if (noeud.getType() == 3) {
@@ -334,13 +412,13 @@ public class Treillis {
                         this.m.set(a, i, 0);
                     }
                     this.m.set(b, i, 1);
-                    this.m.set(b + (n/2), i + 1, 1);
+                    this.m.set(b + (n / 2), i + 1, 1);
                     i = i + 2;
                 }
                 b = b + 1;
             }
 //            System.out.println(m.toString());
-            //Remplissage des collones NoeudAppuieSimple (Marche que si le treillies est a l'horizontal)
+            //Remplissage des collones NoeudAppuieSimple (Marche que si le treillies est a l'horizontal), a revoir !!
             b = 0;
             for (Noeud noeud : this.LN) {
                 if (noeud.getType() == 2) {
@@ -348,9 +426,10 @@ public class Treillis {
                     for (int a = 0; a < n; a++) {
                         this.m.set(a, i, 0);
                     }
+                    // Utiliser le terrain
                     this.m.set(b, i, noeud.coefyb(this.Terrain.get(0)));
 //                    this.m.set(b, i, 1);
-                    this.m.set(b + (n/2), i, noeud.coefxb(this.Terrain.get(0)));
+                    this.m.set(b + (n / 2), i, noeud.coefxb(this.Terrain.get(0)));
                     i = i + 1;
                 }
                 b = b + 1;
@@ -403,18 +482,17 @@ public class Treillis {
             return 2 * n;
         }
     }
-
     /**
-     * @return the Terrain
+     * @return the Appuis
      */
-    public ArrayList<Barre> getTerrain() {
-        return Terrain;
+    public ArrayList<Noeud> getAppuis() {
+        return Appuis;
     }
 
     /**
-     * @param Terrain the Terrain to set
+     * @param Appuis the Appuis to set
      */
-    public void setTerrain(ArrayList<Barre> Terrain) {
-        this.Terrain = Terrain;
+    public void setAppuis(ArrayList<Noeud> Appuis) {
+        this.Appuis = Appuis;
     }
 }
