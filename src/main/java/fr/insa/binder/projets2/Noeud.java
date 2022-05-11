@@ -22,6 +22,15 @@ public abstract class Noeud {
     private ArrayList<Barre> bDep;
     private ArrayList<Barre> bArr;
     private int type;
+    private Vecteur2D ter;
+
+    public Vecteur2D getTer() {
+        return this.ter;
+    }
+
+    public void setTer(Vecteur2D ter) {
+        this.ter = ter;
+    }
 
     public void setbDep(ArrayList<Barre> bDep) {
         this.bDep = bDep;
@@ -79,6 +88,7 @@ public abstract class Noeud {
         this.bArr = new ArrayList<>();
         this.bDep = new ArrayList<>();
         this.type = 0;
+        this.ter = new Vecteur2D(0, 0);
 //        this.bArr = new ArrayList<Barre> (); ?????
     }
 
@@ -171,11 +181,12 @@ public abstract class Noeud {
 
     public double coefxb(Barre b) {
         if (this.contient(b) == true) {
-            if ((b.angle(this)==180)||(b.angle(this)== -180)){
+            if ((b.angle(this) == 180) || (b.angle(this) == -180)) {
                 return -1;
-            }
-            else{
-                double ang = Math.toRadians(b.angle(this));            
+            } else if ((b.angle(this) == 90) || (b.angle(this) == -90)) {
+                return 0;
+            } else {
+                double ang = Math.toRadians(b.angle(this));
                 return cos(ang);
             }
         } else {
@@ -185,12 +196,11 @@ public abstract class Noeud {
 
     public double coefyb(Barre b) {
         if (this.contient(b) == true) {
-            if ((b.angle(this)==180)||(b.angle(this)== -180)){
+            if ((b.angle(this) == 180) || (b.angle(this) == -180)) {
                 return 0;
-            }
-            else {
-            double ang = Math.toRadians(b.angle(this));
-            return sin(ang);
+            } else {
+                double ang = Math.toRadians(b.angle(this));
+                return sin(ang);
             }
         } else {
             return 0;
@@ -211,6 +221,28 @@ public abstract class Noeud {
             i = i + 1;
         }
         return boo;
+    }
+
+    public double coefxV() {
+        Barre b = new Barre(this, new NoeudSimple(this.nx + this.ter.getVx(), this.ny + this.ter.getVy()));
+        System.out.println("Composante en x :");
+        double f = this.coefxb(b);
+        System.out.println(b.toString());
+        double i = b.angle(this);
+        System.out.println(i);
+        System.out.println(f);
+        return f;
+    }
+
+    public double coefyV() {
+        Barre b = new Barre(this, new NoeudSimple(this.nx + this.ter.getVx(), this.ny + this.ter.getVy()));
+        System.out.println("Composante en y : ");
+        System.out.println(b.toString());
+        double f = this.coefyb(b);
+        double i = b.angle(this);
+        System.out.println(i);
+        System.out.println(f);
+        return f;
     }
 }
 

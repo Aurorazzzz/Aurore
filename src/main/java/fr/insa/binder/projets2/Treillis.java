@@ -106,7 +106,7 @@ public class Treillis {
             System.out.println("Le Noeud est déjà dans le treillis");
 //        } else if (this.Appuis.size() > 2){
 //            System.out.println("Trop de noeud appuie... (definir un terrain si on veut en mettre plus");
-           
+
         } else {
             if ((n.getType() == 3) || (n.getType() == 2)) {
 //                if (this.Appuis.size() == 2) {
@@ -118,13 +118,13 @@ public class Treillis {
 //                    this.Appuis.add(n);
 //                   
 //                }
-                    this.LN.add(n);
-                    n.setId(this.maxIdNoeud() + 1);
-                    this.Appuis.add(n);
+                this.LN.add(n);
+                n.setId(this.maxIdNoeud() + 1);
+                this.Appuis.add(n);
             } else {
                 n.setId(this.maxIdNoeud() + 1);
                 this.LN.add(n);
-                
+
             }
 
         }
@@ -200,7 +200,6 @@ public class Treillis {
 //        Barre b = new Barre(this.Appuis.get(0), this.Appuis.get(1));
 //        this.Terrain.add(b);
 //    }
-
     public Noeud choisiNoeud() {
         System.out.println("Entrez le numero qui s'affiche devant le Noeud que vous voulez ajouter :");
         int i = 1;
@@ -427,9 +426,9 @@ public class Treillis {
                         this.m.set(a, i, 0);
                     }
                     // Utiliser le terrain
-                    this.m.set(b, i, noeud.coefyb(this.Terrain.get(0)));
+                    this.m.set(b, i, noeud.coefyV());
 //                    this.m.set(b, i, 1);
-                    this.m.set(b + (n / 2), i, noeud.coefxb(this.Terrain.get(0)));
+                    this.m.set(b + (n / 2), i, noeud.coefxV());
                     i = i + 1;
                 }
                 b = b + 1;
@@ -449,6 +448,7 @@ public class Treillis {
             return m;
         }
     }
+
 
     public int nbrAD() {
         int i = 0;
@@ -482,6 +482,7 @@ public class Treillis {
             return 2 * n;
         }
     }
+
     /**
      * @return the Appuis
      */
