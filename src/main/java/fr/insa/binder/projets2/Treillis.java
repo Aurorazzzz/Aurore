@@ -75,7 +75,7 @@ public class Treillis {
             System.out.println("Neoud " + noeud.getId() + " : (" + noeud.getReacX() + ", " + noeud.getReacY() + ")");
         }
         for (Barre barre : this.LB) {
-            System.out.println("Barre " + barre.getId() + " : " + barre.getTens() );
+            System.out.println("Barre " + barre.getId() + " : " + barre.getTens());
 
         }
     }
@@ -446,11 +446,11 @@ public class Treillis {
 //            //Remplissage de la derniere collone (avec des 0 ou les coordonnées des forces)
             b = 0;
             for (Noeud noeud : this.LN) {
-                this.m.set(b, i, noeud.getFc().getVx());
+                this.m.set(b, i, -noeud.getFc().getVx());
                 b = b + 1;
             }
             for (Noeud noeud : this.LN) {
-                this.m.set(b, i, noeud.getFc().getVy());
+                this.m.set(b, i, -noeud.getFc().getVy());
                 b = b + 1;
             }
             System.out.println(m.toString());
@@ -483,20 +483,22 @@ public class Treillis {
         for (Noeud noeud : this.LN) {
             if (noeud.getType() == 3) {
                 noeud.setReacX(force.get(k));
+                noeud.setReacY(force.get(k+1));
                 bla.add("Noeud : " + noeud.getId());
-                k = k + 1;
+                k = k + 2;
             }
         }
-        for (Noeud noeud : this.LN) {
-            if (noeud.getType() == 3) {
-                noeud.setReacY(force.get(k));
-                bla.add("Noeud : " + noeud.getId());
-                k = k + 1;
-            }
-        }
+//        for (Noeud noeud : this.LN) {
+//            if (noeud.getType() == 3) {
+//                noeud.setReacY(force.get(k));
+//                bla.add("Noeud : " + noeud.getId());
+//                k = k + 1;
+//            }
+//        }
         for (Noeud noeud : this.LN) {
             if (noeud.getType() == 2) {
-                noeud.setReacY(force.get(k));
+                noeud.setReacX(noeud.coefyV() * force.get(k));
+                noeud.setReacY(noeud.coefxV() * force.get(k));
                 bla.add("Noeud : " + noeud.getId());
                 k = k + 1;
             }

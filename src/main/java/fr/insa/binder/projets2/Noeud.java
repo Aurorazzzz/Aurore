@@ -110,7 +110,7 @@ public abstract class Noeud {
 
     @Override
     public String toString() {
-        return "((" + this.nx + " ; " + this.ny + ") ;  " + this.id + " ; (" + this.fc + ") ; Reaction sur X : " + this.reacX + " ; Reaction sur Y : " + this.reacY+ ")";
+        return "((" + this.nx + " ; " + this.ny + ") ;  " + this.id + " ; (" + this.fc + ") ; Reaction sur X : " + this.reacX + " ; Reaction sur Y : " + this.reacY + ")";
     }
 
     public boolean egal(Noeud n) {
@@ -282,7 +282,7 @@ public abstract class Noeud {
             this.reacY = 0;
         } else {
             this.reacY = reacY;
-        }        
+        }
     }
 }
 

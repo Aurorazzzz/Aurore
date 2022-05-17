@@ -4,6 +4,8 @@
  */
 package fr.insa.binder.projets2;
 
+import static java.lang.Math.abs;
+
 /**
  *
  * @author Elève
@@ -172,11 +174,11 @@ public class Matrice {
     }
 
     public int lignePlusGrandPivot(int col) {
-        double max = coef[col][col];
+        double max = abs(coef[col][col]);
         int plusGrandPivot = col;
         for (int ligne = col; ligne < coef.length; ligne++) {
-            if (coef[ligne][col] > max) {
-                max = coef[col][col];
+            if (abs(coef[ligne][col]) > max) {
+                max = abs(coef[col][col]);
                 plusGrandPivot = ligne;
             }
 
