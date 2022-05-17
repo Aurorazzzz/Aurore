@@ -10,6 +10,8 @@ package fr.insa.binder.projets2;
  */
 public class NoeudAppuieDouble extends NoeudAppuie {
 
+
+
     public NoeudAppuieDouble(double nx, double ny, int id, Vecteur2D fc) {
         super(nx, ny, id, fc);
         this.setType(3);
@@ -18,24 +20,21 @@ public class NoeudAppuieDouble extends NoeudAppuie {
     public NoeudAppuieDouble(double nx, double ny, Vecteur2D fc) {
         super(nx, ny, fc);
         this.setType(3);
-
     }
 
     public NoeudAppuieDouble(double nx, double ny) {
         super(nx, ny);
         this.setType(3);
-
     }
 
     public NoeudAppuieDouble() {
         super();
         this.setType(3);
-
     }
 
     @Override
     public String toString() {
-        return "Noeud Appuie Double : (" + this.getNx() + " ; " + this.getNy() + " ; " + this.getId() + " ; (" + this.getFc() + "))";
+        return "Noeud Appuie Double : ((" + this.getNx() + " ; " + this.getNy() + ") ;  " + this.getId() + " ; (" + this.getFc() + ") ; Reaction sur X : " + this.getReacX() + " ; Reaction sur Y : " + this.getReacY()+ ")";
     }
 
 }

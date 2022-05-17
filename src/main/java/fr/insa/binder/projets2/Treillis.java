@@ -15,6 +15,7 @@ public class Treillis {
 
     private ArrayList<Noeud> LN;
     private ArrayList<Barre> LB;
+    // Pas très util je penses... 
     private Matrice m;
 //    private ArrayList<Barre> Terrain;
     private ArrayList<Noeud> Appuis;
@@ -69,6 +70,14 @@ public class Treillis {
             System.out.println(barre.toString());
         }
         System.out.println("");
+        System.out.println("Reactions");
+        for (Noeud noeud : this.LN) {
+            System.out.println("Neoud " + noeud.getId() + " : (" + noeud.getReacX() + ", " + noeud.getReacY() + ")");
+        }
+        for (Barre barre : this.LB) {
+            System.out.println("Barre " + barre.getId() + " : " + barre.getTens() );
+
+        }
     }
 
     public int maxIdNoeud() {
@@ -445,10 +454,62 @@ public class Treillis {
                 b = b + 1;
             }
             System.out.println(m.toString());
+            ArrayList<Double> d = this.forces(m);
+            System.out.println(this.LN.get(0).getReacX());
+            System.out.println(this.LN.get(0).getReacY());
+            System.out.println(this.LB.get(0).getTens());
             return m;
         }
     }
 
+    public ArrayList<Double> forces(Matrice m) {
+        System.out.println("Hello");
+        m.descenteDeGauss();
+        m = m.remonteeGauss();
+        System.out.println("bof");
+        int l = m.getL();
+        int c = m.getC();
+        ArrayList<Double> force = new ArrayList<Double>();
+        ArrayList<String> bla = new ArrayList<String>();
+        for (int i = 0; i < l; i++) {
+            force.add(m.get(i, c - 1));
+        }
+        int k = 0;
+        for (Barre barre : this.LB) {
+            barre.setTens(force.get(k));
+            bla.add("Barre : " + barre.getId());
+            k = k + 1;
+        }
+        for (Noeud noeud : this.LN) {
+            if (noeud.getType() == 3) {
+                noeud.setReacX(force.get(k));
+                bla.add("Noeud : " + noeud.getId());
+                k = k + 1;
+            }
+        }
+        for (Noeud noeud : this.LN) {
+            if (noeud.getType() == 3) {
+                noeud.setReacY(force.get(k));
+                bla.add("Noeud : " + noeud.getId());
+                k = k + 1;
+            }
+        }
+        for (Noeud noeud : this.LN) {
+            if (noeud.getType() == 2) {
+                noeud.setReacY(force.get(k));
+                bla.add("Noeud : " + noeud.getId());
+                k = k + 1;
+            }
+        }
+
+        for (String string : bla) {
+            System.out.println(string);
+        }
+        for (Double d : force) {
+            System.out.println(d);
+        }
+        return force;
+    }
 
     public int nbrAD() {
         int i = 0;

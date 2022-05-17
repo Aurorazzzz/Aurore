@@ -23,6 +23,8 @@ public abstract class Noeud {
     private ArrayList<Barre> bArr;
     private int type;
     private Vecteur2D ter;
+    private double reacX;
+    private double reacY;
 
     public Vecteur2D getTer() {
         return this.ter;
@@ -89,6 +91,8 @@ public abstract class Noeud {
         this.bDep = new ArrayList<>();
         this.type = 0;
         this.ter = new Vecteur2D(0, 0);
+        this.reacX = 0;
+        this.reacY = 0;
 //        this.bArr = new ArrayList<Barre> (); ?????
     }
 
@@ -106,7 +110,7 @@ public abstract class Noeud {
 
     @Override
     public String toString() {
-        return "(" + this.nx + " ; " + this.ny + " ;  " + this.id + " ; (" + this.fc + ")";
+        return "((" + this.nx + " ; " + this.ny + ") ;  " + this.id + " ; (" + this.fc + ") ; Reaction sur X : " + this.reacX + " ; Reaction sur Y : " + this.reacY+ ")";
     }
 
     public boolean egal(Noeud n) {
@@ -225,24 +229,60 @@ public abstract class Noeud {
 
     public double coefxV() {
         Barre b = new Barre(this, new NoeudSimple(this.nx + this.ter.getVx(), this.ny + this.ter.getVy()));
-        System.out.println("Composante en x :");
+//        System.out.println("Composante en x :");
         double f = this.coefxb(b);
-        System.out.println(b.toString());
-        double i = b.angle(this);
-        System.out.println(i);
-        System.out.println(f);
+//        System.out.println(b.toString());
+//        double i = b.angle(this);
+//        System.out.println(i);
+//        System.out.println(f);
         return f;
     }
 
     public double coefyV() {
         Barre b = new Barre(this, new NoeudSimple(this.nx + this.ter.getVx(), this.ny + this.ter.getVy()));
-        System.out.println("Composante en y : ");
-        System.out.println(b.toString());
+//        System.out.println("Composante en y : ");
+//        System.out.println(b.toString());
         double f = this.coefyb(b);
-        double i = b.angle(this);
-        System.out.println(i);
-        System.out.println(f);
+//        double i = b.angle(this);
+//        System.out.println(i);
+//        System.out.println(f);
         return f;
+    }
+
+    /**
+     * @return the reacX
+     */
+    public double getReacX() {
+        return reacX;
+    }
+
+    /**
+     * @param reacX the reacX to set
+     */
+    public void setReacX(double reacX) {
+        if (this.type == 1) {
+            this.reacX = 0;
+        } else {
+            this.reacX = reacX;
+        }
+    }
+
+    /**
+     * @return the reacY
+     */
+    public double getReacY() {
+        return reacY;
+    }
+
+    /**
+     * @param reacY the reacY to set
+     */
+    public void setReacY(double reacY) {
+        if (this.type == 1) {
+            this.reacY = 0;
+        } else {
+            this.reacY = reacY;
+        }        
     }
 }
 

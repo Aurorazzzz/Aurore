@@ -23,6 +23,7 @@ public class Barre {
     private double ctm;
     private int id;
     private int type;
+    private double tens;
 //    private Vecteur2D tens;
     
 
@@ -123,6 +124,7 @@ public class Barre {
         this.tm = tm;
         this.cm = cm;
         this.ctm = ctm;
+        this.tens = 0;
         if (nd.getbDep().contains(this) == false) {
             nd.getbDep().add(this);
         }
@@ -142,7 +144,7 @@ public class Barre {
 
     @Override
     public String toString() {
-        return "Barre : (" + this.id + " ; (" + this.nd + ") ;  (" + this.na + ") ; " + this.tm + " ; " + this.cm + " ; " + this.ctm + ")";
+        return "Barre : (" + this.id + " ; (" + this.nd + ") ;  (" + this.na + ") ; " + this.tm + " ; " + this.cm + " ; " + this.ctm + " ; Tension : " + this.tens+ ")";
     }
 
     public int type(){
@@ -225,5 +227,19 @@ public class Barre {
      */
     public void setType(int type) {
         this.type = type;
+    }
+
+    /**
+     * @return the tens
+     */
+    public double getTens() {
+        return tens;
+    }
+
+    /**
+     * @param tens the tens to set
+     */
+    public void setTens(double tens) {
+        this.tens = tens;
     }
 }
