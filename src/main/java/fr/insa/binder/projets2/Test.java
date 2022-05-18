@@ -19,11 +19,13 @@ public class Test {
         Noeud n3 = new NoeudAppuieDouble(2, 0, new Vecteur2D(0, 0));
         Noeud n4 = new NoeudSimple(1, 2, new Vecteur2D(9, 7));
         Noeud n5 = new NoeudSimple(3, 2, new Vecteur2D(0, 0));
+        Noeud n6 = new NoeudAppuieSimple(4, 0, new Vecteur2D(0, 0));
         T.ajouteNoeud(n1);
         T.ajouteNoeud(n2);
         T.ajouteNoeud(n3);
         T.ajouteNoeud(n4);
         T.ajouteNoeud(n5);
+        T.ajouteNoeud(n6);
         Barre b1 = new Barre(n1, n3);
         Barre b2 = new Barre(n2, n3);
         Barre b3 = new Barre(n2, n4);
@@ -31,48 +33,17 @@ public class Test {
         Barre b5 = new Barre(n3, n5);
         Barre b6 = new Barre(n4, n5);
         Barre b7 = new Barre(n5, n1);
+        Barre b8 = new Barre(n5, n1);
         T.ajouteBarre(b1);
-//        System.out.println();
-//        T.Affiche();
-//        System.out.println();
         T.ajouteBarre(b2);
-//        System.out.println();
-//        T.Affiche();
-//        System.out.println();
         T.ajouteBarre(b3);
-//        System.out.println();
-//        T.Affiche();
-//        System.out.println();
         T.ajouteBarre(b4);
-//        System.out.println();
-//        T.Affiche();
-//        System.out.println();
         T.ajouteBarre(b5);
-//        System.out.println();
-//        T.Affiche();
-//        System.out.println();
         T.ajouteBarre(b6);
-//        System.out.println();
-//        T.Affiche();
-//        System.out.println();
         T.ajouteBarre(b7);
-//        System.out.println();
-//        T.Affiche();
-//        System.out.println();
-
-//        T.Affiche();
-////        double tt = cos(Math.PI);
-////        double tb = cos(-Math.PI);
-//////        double tb = n1.coefxb(T.getTerrain().get(0));
-////        System.out.println(tt);
-////        System.out.println(tb);
-////        double ang = b1.angle(n2);
-////        System.out.println(ang);
-////        String.valueOf(ang);
+        T.ajouteBarre(b8);
         Matrice m = T.defM();
         T.Affiche();
-
-//        T.menuTexte();
     }
 
     public static void Treillis2() {
@@ -234,11 +205,11 @@ public class Test {
 
     public static void main(String[] args) {
 //        Treillis2();
-//        Treillis3();
+        Treillis3();
 //        Treillis1();
-//        Treillis4();
+        Treillis4();
 //        Treillis5();
-          Treillis6();
+//          Treillis6();
 //        T.menuTexte();
     }
 }

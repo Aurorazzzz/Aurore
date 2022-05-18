@@ -99,12 +99,12 @@ public class Matrice {
         //Matrice m = new Matrice(5, 5);
         //m.set(1, 1, 5);
         //m.set(0, 0, 9);
-        double[][] coefs = {{1, 4, 1, 3,3}, {1, 2, -1, 4,-1}, {3, 1, 2, 1,9}};
+        double[][] coefs = {{12, 0, 1}, {1, 0, 0}, {3, 1, 2}};
         double[][] coefs2 = {{0, 1, 2, 1}, {3, 4, 5, 2}, {6, 7, 8, 3}};
         double[][] coefs3 = {{0, 1, 2, 1}, {3, -4, 5, 2}, {6, 7, -8, 3}};
         double[][] coefs4 = {{0.707, 0, 0, 1, 0, 0, 0},{-0.707, 0, -1, 0, 1, 0, 0},{0, 0.707, 0, 0, 0, 1, 0},{0, 0.707, 1, 0, 0, 0, 0},{-0.707, -0.707, 0, 0, 0, 0, 0},{0.707, -0.707, 0, 0, 0, 0, 1000}};
-        Matrice mat = new Matrice(coefs4.length, coefs4[0].length);
-        mat.setAll(coefs4);
+        Matrice mat = new Matrice(coefs.length, coefs[0].length);
+        mat.setAll(coefs);
         System.out.println("matrice :");
         System.out.println(mat.toString());
         mat.descenteDeGauss();

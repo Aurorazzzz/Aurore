@@ -228,7 +228,9 @@ public abstract class Noeud {
     }
 
     public double coefxV() {
-        Barre b = new Barre(this, new NoeudSimple(this.nx + this.ter.getVx(), this.ny + this.ter.getVy()));
+        Barre b = new Barre(this, new NoeudSimple(this.nx - this.ter.getVy(), this.ny + this.ter.getVx()));
+//        Barre b = new Barre(this, new NoeudSimple(this.nx + this.ter.getVx(), this.ny + this.ter.getVy()));
+
 //        System.out.println("Composante en x :");
         double f = this.coefxb(b);
 //        System.out.println(b.toString());
@@ -239,10 +241,12 @@ public abstract class Noeud {
     }
 
     public double coefyV() {
-        Barre b = new Barre(this, new NoeudSimple(this.nx + this.ter.getVx(), this.ny + this.ter.getVy()));
+        Barre b = new Barre(this, new NoeudSimple(this.nx - this.ter.getVy(), this.ny + this.ter.getVx()));        
+
+//        Barre b = new Barre(this, new NoeudSimple(this.nx + this.ter.getVx(), this.ny + this.ter.getVy()));
+        double f = this.coefyb(b);
 //        System.out.println("Composante en y : ");
 //        System.out.println(b.toString());
-        double f = this.coefyb(b);
 //        double i = b.angle(this);
 //        System.out.println(i);
 //        System.out.println(f);

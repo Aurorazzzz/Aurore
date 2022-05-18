@@ -435,9 +435,9 @@ public class Treillis {
                         this.m.set(a, i, 0);
                     }
                     // Utiliser le terrain
-                    this.m.set(b, i, noeud.coefyV());
+                    this.m.set(b, i, noeud.coefxV());
 //                    this.m.set(b, i, 1);
-                    this.m.set(b + (n / 2), i, noeud.coefxV());
+                    this.m.set(b + (n / 2), i, noeud.coefyV());
                     i = i + 1;
                 }
                 b = b + 1;
@@ -455,36 +455,36 @@ public class Treillis {
             }
             System.out.println(m.toString());
             ArrayList<Double> d = this.forces(m);
-            System.out.println(this.LN.get(0).getReacX());
-            System.out.println(this.LN.get(0).getReacY());
-            System.out.println(this.LB.get(0).getTens());
+//            System.out.println(this.LN.get(0).getReacX());
+//            System.out.println(this.LN.get(0).getReacY());
+//            System.out.println(this.LB.get(0).getTens());
             return m;
         }
     }
 
     public ArrayList<Double> forces(Matrice m) {
-        System.out.println("Hello");
+//        System.out.println("Hello");
         m.descenteDeGauss();
         m = m.remonteeGauss();
-        System.out.println("bof");
+//        System.out.println("bof");
         int l = m.getL();
         int c = m.getC();
         ArrayList<Double> force = new ArrayList<Double>();
-        ArrayList<String> bla = new ArrayList<String>();
+//        ArrayList<String> bla = new ArrayList<String>();
         for (int i = 0; i < l; i++) {
             force.add(m.get(i, c - 1));
         }
         int k = 0;
         for (Barre barre : this.LB) {
             barre.setTens(force.get(k));
-            bla.add("Barre : " + barre.getId());
+//            bla.add("Barre : " + barre.getId());
             k = k + 1;
         }
         for (Noeud noeud : this.LN) {
             if (noeud.getType() == 3) {
                 noeud.setReacX(force.get(k));
                 noeud.setReacY(force.get(k+1));
-                bla.add("Noeud : " + noeud.getId());
+//                bla.add("Noeud : " + noeud.getId());
                 k = k + 2;
             }
         }
@@ -497,19 +497,19 @@ public class Treillis {
 //        }
         for (Noeud noeud : this.LN) {
             if (noeud.getType() == 2) {
-                noeud.setReacX(noeud.coefyV() * force.get(k));
-                noeud.setReacY(noeud.coefxV() * force.get(k));
-                bla.add("Noeud : " + noeud.getId());
+                noeud.setReacX(noeud.coefxV() * force.get(k));
+                noeud.setReacY(noeud.coefyV() * force.get(k));
+//                bla.add("Noeud : " + noeud.getId());
                 k = k + 1;
             }
         }
-
-        for (String string : bla) {
-            System.out.println(string);
-        }
-        for (Double d : force) {
-            System.out.println(d);
-        }
+//
+//        for (String string : bla) {
+//            System.out.println(string);
+//        }
+//        for (Double d : force) {
+//            System.out.println(d);
+//        }
         return force;
     }
 
